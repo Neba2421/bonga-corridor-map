@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bonga–Gimbo–Diri Corridor Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+  <style>#map { height: 90vh; width: 100%; }</style>
+</head>
+<body>
+  <h2 style="text-align:center;">Bonga–Gimbo–Diri Eco-Cultural Corridor</h2>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([7.20,36.30], 9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      { attribution: '&copy; OpenStreetMap contributors' }
+    ).addTo(map);
+    const locations = [
+      { name: "Bonga (Tourism Hub)", coords: [7.27,36.24], color:"green" },
+      { name: "Gimbo (Agro Hub)", coords: [7.19,36.28], color:"orange" },
+      { name: "Diri (Smart Village)", coords: [7.05,36.35], color:"blue" },
+      { name: "Jimma (Gateway)", coords: [7.67,36.83], color:"gray" },
+      { name: "Mizan Teferi", coords: [6.99,35.59], color:"gray" },
+      { name: "Decha", coords: [7.11,36.00], color:"purple" },
+      { name: "Telo", coords: [7.30,36.66], color:"purple" },
+      { name: "Cheta", coords: [7.40,36.17], color:"purple" },
+      { name: "Menjwo", coords: [7.60,36.40], color:"purple" }
+    ];
+    locations.forEach(l => {
+      L.circleMarker(l.coords, { radius:8, color:l.color, fillOpacity:0.7 })
+        .bindPopup(`<b>${l.name}</b>`).addTo(map);
+    });
+    L.polyline(locations.slice(0,3).map(l=>l.coords), {
+      color:'red', weight:4, dashArray:'8,6'
+    }).bindPopup("Proposed Corridor Road").addTo(map);
+  </script>
+</body>
+</html>
